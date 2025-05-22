@@ -23,6 +23,25 @@ app.get("/", (req, res, next) => {
   res.json({ message: "test" });
 });
 
+// POST route
+app.post("/", async (req, res, next) => {
+  try {
+    const { first_name, surname, message } = req.body;
+
+    await db.query(
+      `INSERT INTO messages (first_name, surname, message) VALUES($1, $2, $3)`,
+      [first_name, surname, message]
+    );
+
+    res.status(201).json({
+      success: true,
+      message: "Message created successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Add in error handling
 const errorHandler = (err, req, res, next) => {
   const statusCode = err.statusCode || 500;
