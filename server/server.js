@@ -24,6 +24,20 @@ app.get("/", (req, res, next) => {
 });
 
 // Add in error handling
+const errorHandler = (err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+
+  res.status(statusCode).json({
+    success: false,
+    error: {
+      statusCode,
+      message,
+    },
+  });
+};
+
+app.use(errorHandler);
 
 app.listen(8080, () => {
   console.log("Server is listening on port 8080...");
