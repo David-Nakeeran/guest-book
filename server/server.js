@@ -18,9 +18,18 @@ const db = new Pool({
   connectionString: process.env.DB_CONNECTION,
 });
 
-// test route
-app.get("/", (req, res, next) => {
-  res.json({ message: "test" });
+// GET all messages
+app.get("/", async (req, res, next) => {
+  try {
+    const result = await db.query(`SELECT * FROM messages`);
+
+    res.status(200).json({
+      success: true,
+      messages: result.rows,
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 // POST route
@@ -36,6 +45,44 @@ app.post("/", async (req, res, next) => {
     res.status(201).json({
       success: true,
       message: "Message created successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+const getMessageById = async (messageId) => {
+  try {
+    const result = await db.query(`SELECT * FROM messages WHERE id = $1`, [
+      messageId,
+    ]);
+
+    if (result.rows.length === 0) {
+      const error = new Error("Message not found");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// DELETE message by :id
+app.delete("/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const result = await getMessageById(id);
+
+    const messageId = result.rows[0].message.id;
+
+    await db.query(`DELETE FROM messages WHERE id = $1`, [messageId]);
+
+    res.status(200).json({
+      success: true,
+      message: messageId,
     });
   } catch (error) {
     next(error);
