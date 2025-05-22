@@ -62,7 +62,7 @@ const getMessageById = async (messageId) => {
       error.statusCode = 404;
       throw error;
     }
-
+    console.log(result);
     return result;
   } catch (error) {
     throw error;
@@ -76,7 +76,7 @@ app.delete("/:id", async (req, res, next) => {
 
     const result = await getMessageById(id);
 
-    const messageId = result.rows[0].message.id;
+    const messageId = result.rows[0].id;
 
     await db.query(`DELETE FROM messages WHERE id = $1`, [messageId]);
 
