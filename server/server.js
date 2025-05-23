@@ -89,6 +89,31 @@ app.delete("/:id", async (req, res, next) => {
   }
 });
 
+// Update route for likes
+app.put("/:id/likes", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const result = await getMessageById(id);
+    const messageId = result.rows[0].id;
+
+    const likes = result.rows[0].likes || 0;
+    const updatedLikes = likes + 1;
+
+    await db.query(`UPDATE messages SET likes = $1 WHERE id = $2`, [
+      updatedLikes,
+      messageId,
+    ]);
+
+    res.status(200).json({
+      success: true,
+      message: "Message has like updated successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Add in error handling
 const errorHandler = (err, req, res, next) => {
   const statusCode = err.statusCode || 500;
