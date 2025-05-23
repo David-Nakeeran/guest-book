@@ -35,7 +35,7 @@ const createElements = (arr) => {
     const surnamePara = document.createElement("p");
     const messagePara = document.createElement("p");
     const likesPara = document.createElement("p");
-    console.log(element.first_name);
+
     firstNamePara.textContent = `First name: ${element.first_name}`;
     surnamePara.textContent = `Surname: ${element.surname}`;
     messagePara.textContent = `Message: ${element.message}`;
@@ -46,8 +46,12 @@ const createElements = (arr) => {
     likeBtn.textContent = "Like";
 
     const deleteBtn = document.createElement("button");
-    deleteBtn.setAttribute("id", element.id);
     deleteBtn.textContent = "Delete Message";
+
+    deleteBtn.addEventListener("click", async () => {
+      await deleteData(element.id);
+      deleteBtn.parentElement.remove();
+    });
 
     messageContainer.append(
       firstNamePara,
@@ -64,7 +68,6 @@ const getData = async () => {
   try {
     const response = await fetch("http://localhost:8080");
     const data = await response.json();
-    console.log(data.messages);
     return data.messages;
   } catch (error) {
     console.error(error);
@@ -88,16 +91,6 @@ const coordinator = async () => {
   createElements(data);
 };
 
-const handleDelete = async (e) => {
-  await deleteData(Number(e.target.id));
-  coordinator();
-};
-
-const deleteMessage = () => {
-  const section = document.getElementById("comments-container");
-  section.addEventListener("click", handleDelete);
-};
-
 // Event listener for like
 likes.forEach((like) => {
   like.addEventListener("click", (e) => {
@@ -105,7 +98,6 @@ likes.forEach((like) => {
   });
 });
 
-deleteMessage();
 coordinator();
 
 // Get icon for likes
