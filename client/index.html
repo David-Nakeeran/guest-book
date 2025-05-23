@@ -1,13 +1,29 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <link rel="stylesheet" href="./src/style.css" />
+    <script type="module" src="./src/main.js" defer></script>
+    <title>Guest Book</title>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <header><h1>Guest Book</h1></header>
+    <main>
+      <form>
+        <fieldset>
+          <legend>Enter your message here!</legend>
+          <label for="first_name">First Name</label>
+          <input type="text" name="first_name" required />
+          <label for="surname">Surname</label>
+          <input type="text" name="surname" required />
+          <label for="message">Message</label>
+          <input type="text" name="message" required />
+          <button type="submit">Submit</button>
+        </fieldset>
+      </form>
+    </main>
+    <footer><p>Guest Book 2025 ©</p></footer>
   </body>
 </html>
