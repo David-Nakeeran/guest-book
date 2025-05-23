@@ -1,5 +1,6 @@
 const form = document.querySelector("form");
 const commentsContainer = document.getElementById("comments-container");
+const likes = document.querySelectorAll("[data-like]");
 
 const submitHandler = async (e) => {
   e.preventDefault();
@@ -40,6 +41,10 @@ const createElements = (arr) => {
     messagePara.textContent = `Message: ${element.message}`;
     likesPara.textContent = `Likes: ${element.likes || 0}`;
 
+    const likeBtn = document.createElement("button");
+    likeBtn.setAttribute("data-like", element.id);
+    likeBtn.textContent = "Like";
+
     const deleteBtn = document.createElement("button");
     deleteBtn.setAttribute("id", element.id);
     deleteBtn.textContent = "Delete Message";
@@ -49,7 +54,8 @@ const createElements = (arr) => {
       surnamePara,
       messagePara,
       likesPara,
-      deleteBtn
+      deleteBtn,
+      likeBtn
     );
   });
 };
@@ -92,5 +98,14 @@ const deleteMessage = () => {
   section.addEventListener("click", handleDelete);
 };
 
+// Event listener for like
+likes.forEach((like) => {
+  like.addEventListener("click", (e) => {
+    console.log(e.target.id);
+  });
+});
+
 deleteMessage();
 coordinator();
+
+// Get icon for likes
