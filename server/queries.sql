@@ -4,5 +4,6 @@ CREATE TABLE messages (
     first_name VARCHAR(255),
     surname VARCHAR(255),
     message TEXT,
-    created_at TIMESTAMP DEFAULT NOW()
+    created_at TIMESTAMP DEFAULT NOW(),
+    likes INTEGER
 );
