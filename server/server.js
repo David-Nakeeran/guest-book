@@ -62,7 +62,6 @@ const getMessageById = async (messageId) => {
       error.statusCode = 404;
       throw error;
     }
-    console.log(result);
     return result;
   } catch (error) {
     throw error;
