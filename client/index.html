@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Sora:wght@100..800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./src/style.css" />
     <script type="module" src="./src/main.js" defer></script>
     <title>Guest Book</title>
@@ -23,7 +29,13 @@
           <button type="submit">Submit</button>
         </fieldset>
       </form>
-      <section class="comments-container" id="comments-container"></section>
+      <section class="btn-container">
+        <button id="messages-btn">Show Messages</button>
+      </section>
+      <section
+        class="comments-container hidden"
+        id="comments-container"
+      ></section>
     </main>
     <footer><p>Guest Book 2025 ©</p></footer>
   </body>
