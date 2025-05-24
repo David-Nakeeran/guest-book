@@ -3,3 +3,180 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  font-family: "Sora", sans-serif;
+  height: 100dvh;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  background-color: #1e1e2f;
+  color: #ededed;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  background-color: #1e1e2f;
+  margin-bottom: 2em;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  border: 1px solid #b388ff;
+  background-color: #2a2a3c;
+  padding: 2em;
+  border-radius: 6px;
+  font-size: 1.2rem;
+}
+
+legend {
+  color: #b388ff;
+}
+
+input,
+textarea {
+  border: none;
+  background-color: #1e1e2f;
+  color: #ededed;
+  border-radius: 6px;
+  height: 2em;
+}
+
+label {
+  color: #a9a9b3;
+}
+
+/* Typography */
+h1 {
+  padding: 1em;
+  margin-bottom: 0.75rem;
+}
+
+.btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.comments-container {
+  max-width: 300px;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.message p {
+  overflow-wrap: break-word;
+  margin-bottom: 0.75em;
+}
+
+.message {
+  animation-duration: 1.5s;
+  animation-name: slide-up;
+  border: 1px solid #b388ff;
+  border-radius: 6px;
+  margin-bottom: 2em;
+  padding: 0.75em;
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(1000px);
+  }
+
+  to {
+    translate: 0 0;
+    scale: 100% 1;
+  }
+}
+
+.likes-container {
+  display: flex;
+  gap: 0.75em;
+  margin-bottom: 1em;
+}
+
+.button-container {
+  justify-self: end;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75em;
+}
+
+/* Buttons */
+button {
+  font-weight: 600;
+  font-size: 0.85rem;
+  background-color: #b388ff;
+  color: #1e1e2f;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 0.5em 1em;
+}
+
+button:hover {
+  background-color: #a370ff;
+  transform: translateY(-0.15em);
+}
+
+form button {
+  margin-top: 2em;
+}
+
+.btn-container {
+  margin-bottom: 1.2em;
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 1200px) {
+  main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "form comments";
+  }
+
+  form {
+    grid-area: form;
+    align-self: start;
+    justify-self: center;
+  }
+
+  .comments-container {
+    grid-area: comments;
+    align-self: start;
+    justify-self: center;
+    display: grid;
+    max-width: none;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.75em;
+    max-width: 700px;
+    width: 100%;
+  }
+
+  .btn-container {
+    display: none;
+  }
+
+  .message {
+    animation-name: none;
+  }
+}
