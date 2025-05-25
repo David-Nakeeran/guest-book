@@ -3,6 +3,8 @@ const commentsContainer = document.getElementById("comments-container");
 const likes = document.querySelectorAll("[data-like]");
 const messagesBtn = document.getElementById("messages-btn");
 
+const baseUrl = "https://guest-book-9w8a.onrender.com";
+
 const submitHandler = async (e) => {
   e.preventDefault();
 
@@ -10,7 +12,7 @@ const submitHandler = async (e) => {
 
   const formValues = Object.fromEntries(formData);
 
-  const response = await fetch("http://localhost:8080", {
+  const response = await fetch(`${baseUrl}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -91,7 +93,7 @@ const createElements = (arr) => {
 
 const getData = async () => {
   try {
-    const response = await fetch("http://localhost:8080");
+    const response = await fetch(`${baseUrl}`);
     const data = await response.json();
     return data.messages;
   } catch (error) {
@@ -101,7 +103,7 @@ const getData = async () => {
 
 const deleteData = async (id) => {
   try {
-    const response = await fetch(`http://localhost:8080/${id}`, {
+    const response = await fetch(`${baseUrl}/${id}`, {
       method: "DELETE",
     });
     return await response.json();
@@ -112,7 +114,7 @@ const deleteData = async (id) => {
 
 const updateLikeMessageData = async (id) => {
   try {
-    const response = await fetch(`http://localhost:8080/${id}/likes`, {
+    const response = await fetch(`${baseUrl}/${id}/likes`, {
       method: "PUT",
     });
     return await response.json();
