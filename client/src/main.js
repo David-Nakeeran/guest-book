@@ -56,9 +56,11 @@ const createElements = (arr) => {
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete Message";
 
+    // I had originally assigned each message container with the id from the db and then would set an event listener for getting the id with event object target.id. Also taking into account empty strings.
+    // However Elena came up with a better solution that was a lot easier to deal with, I've used this for the deleteBtn functionality, give her a gold star!
     deleteBtn.addEventListener("click", async () => {
       await deleteData(element.id);
-      deleteBtn.parentElement.remove();
+      deleteBtn.parentElement.parentElement.remove();
     });
 
     likeBtn.addEventListener("click", async () => {
@@ -121,13 +123,67 @@ const coordinator = async () => {
   createElements(data);
 };
 
-const messageHandler = () => {
+const messageHandler = (e) => {
   commentsContainer.classList.toggle("hidden");
   if (messagesBtn.textContent === "Show Messages") {
     messagesBtn.textContent = "Hide Messages";
   } else {
     messagesBtn.textContent = "Show Messages";
   }
+  // Checks browser supports web animations api
+  if (document.body.animate) {
+    // Create multiply particles
+    for (let i = 0; i < 25; i++) {
+      // Passing in mouse click coordinates
+      createParticles(e.clientX, e.clientY);
+    }
+  }
+};
+
+// Create particles for submit button click
+const createParticles = (x, y) => {
+  const particle = document.createElement("particle");
+  document.body.append(particle);
+
+  // Generates a random size between 5 and 28
+  const size = Math.floor(Math.random() * 28) + 5;
+  particle.style.width = `${size}px`;
+  particle.style.height = `${size}px`;
+
+  // Generate a random color in a blue/purple palette
+  // Haven't changed this from the tutorial
+  particle.style.background = `hsl(${Math.random() * 90 + 180}, 70%, 60%)`;
+
+  // Random destination with 75px of mouse click
+  const destinationX = x + (Math.random() - 0.5) * 2 * 75;
+  const destinationY = y + (Math.random() - 0.5) * 2 * 75;
+
+  const animation = particle.animate(
+    [
+      {
+        // Set the origin position of the particle
+        // Offset the particle with half its size to center it around the mouse
+        transform: `translate(${x - size / 2}px, ${y - size / 2}px)`,
+        opacity: 1,
+      },
+      {
+        // Final coordinates as the second keyframe
+        transform: `translate(${destinationX}px, ${destinationY}px)`,
+        opacity: 0,
+      },
+    ],
+    {
+      // Set a random duration from 500 to 1500ms
+      duration: 500 + Math.random() * 1000,
+      easing: "cubic-bezier(0, .9, .57, 1)",
+      // Delay every particle with a random value from 0ms to 200ms
+      delay: Math.random() * 200,
+    }
+  );
+  // Removed element after animation has finished
+  animation.onfinish = () => {
+    particle.remove();
+  };
 };
 
 messagesBtn.addEventListener("click", messageHandler);
