@@ -55,6 +55,10 @@ label {
   color: #a9a9b3;
 }
 
+footer {
+  padding: 1em;
+}
+
 /* Typography */
 h1 {
   padding: 1em;
@@ -117,6 +121,7 @@ h1 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.75em;
+  margin-top: auto; /* Pushes container to bottom of parent container*/
 }
 
 /* Buttons */
@@ -144,10 +149,43 @@ form button {
   margin-bottom: 1.2em;
 }
 
+/* Experimental particle effects button */
+/* position and top and left set so the particles do not interact with the layout of the page */
+particle {
+  border-radius: 50%;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  opacity: 0;
+}
+
 @media (min-width: 768px) {
+  fieldset {
+    font-size: 1.4rem;
+  }
+
+  fieldset button,
+  .btn-container button {
+    font-size: 1.1rem;
+  }
+
+  .comments-container {
+    max-width: 500px;
+  }
+
+  .button-container button {
+    font-size: 1rem;
+  }
 }
 
 @media (min-width: 1200px) {
+  fieldset {
+    font-size: 1.4rem;
+  }
+  fieldset button {
+    font-size: 1.1rem;
+  }
   main {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -178,5 +216,13 @@ form button {
 
   .message {
     animation-name: none;
+  }
+
+  .comments-container {
+    max-width: 500px;
+  }
+
+  .button-container button {
+    font-size: 1rem;
   }
 }
